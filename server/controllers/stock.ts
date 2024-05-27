@@ -20,14 +20,13 @@ export class Controller {
             },
             ...warehouseDatsStock
           )
-          setTimeout( () => {
           res.status(200).json({
             maxCapacity: result.maxCapacity,
             value: result.value,
             prcntWarning: result.prcntWarning,
             prcntError: result.prcntError,
             displayValue: `Занято ${ result.value } из ${ result.maxCapacity } (т)`            
-          }) }, 5000 )
+          })
         } )
       } else {
         res.status(200).json(Object.assign({}, ...warehouseStock))

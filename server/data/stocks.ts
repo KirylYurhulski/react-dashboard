@@ -17,7 +17,7 @@ export const stock: Stock[] = [
         value: 3000,
       },
       {
-        dats: Dats.convertToExternal(),
+        dats: Dats.convertToInternal(),
         value: 3000,
       },            
     ]
@@ -37,7 +37,7 @@ export const stock: Stock[] = [
         value: 3000,
       },
       {
-        dats: Dats.convertToExternal(),
+        dats: Dats.convertToInternal(),
         value: 3000,
       }, 
     ]
@@ -57,7 +57,7 @@ export const stock: Stock[] = [
         value: 1500,
       },
       {
-        dats: Dats.convertToExternal(),
+        dats: Dats.convertToInternal(),
         value: 1500,
       }, 
     ]
