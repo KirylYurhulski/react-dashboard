@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { RadialChart } from '@ui5/webcomponents-react-charts'
+import { Loader, MessageItem, MessageView } from '@ui5/webcomponents-react'
 import { useAppDispatch, useAppSelector } from '../../../store'
 import { fetchStock } from '../../../store/stock/action'
 import { Dats as DatsUtils } from '../../../services/Dats'
-import { Loader, MessageItem, MessageView } from '@ui5/webcomponents-react'
 
 export const Stock = () => {
   const data = useAppSelector(state => state.stock.data)

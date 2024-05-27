@@ -3,4 +3,4 @@ import { Controller } from '../controllers/resource'
 
 export const router = Router()
 
-router.use('/', Controller.getAll)
+router.get('/', Controller.getAll)

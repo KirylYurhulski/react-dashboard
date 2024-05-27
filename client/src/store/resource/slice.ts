@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchResources } from './action'
 import { resources as recourcesMockData } from '../../data/mock/Resources';
 
 export type Resource = {
@@ -15,7 +16,7 @@ export type Resource = {
     accessor: string,
     stackId: string,
     label: string,
-  }[]
+  }[],
 }
 
 const slice = createSlice({
@@ -26,13 +27,29 @@ const slice = createSlice({
       dataset: [],
       measures: []
     } as Resource,
+    loading: false,
+    errorMessage: ''
   },
-  reducers: {
-    setData(state, action: PayloadAction) {
-      state.data = recourcesMockData
-    }
-  }
+  reducers: {},
+  extraReducers(builder) {
+    builder
+    .addCase(fetchResources.pending, (state) => {
+      state.loading = true
+      state.errorMessage = ''
+    })
+    .addCase(fetchResources.fulfilled, (state, action) => {
+      state.loading = false
+      state.errorMessage = ''
+      state.data = {
+        ...action.payload,
+        measures: recourcesMockData.measures
+      }
+    })
+    .addCase(fetchResources.rejected, (state, action) => {
+      state.loading = false
+      state.errorMessage = `[${ action.error.code }] ${ action.error.message }`
+    })
+  },
 })
 
-export const { setData } = slice.actions
 export default slice.reducer

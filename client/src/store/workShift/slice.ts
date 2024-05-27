@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { shifts as shiftsMockData } from '../../data/mock/WorkShifts'
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchWorkShits } from './action'
 
 export interface Shift {
   id: number,
@@ -21,14 +21,29 @@ const slice = createSlice({
     data: {
       title: 'Производительность: (Операции - ШТ)',
       dataset: []
-    } as Shifts
+    } as Shifts,
+    loading: false,
+    errorMessage: ''
   },
-  reducers: {
-    setData(state, action: PayloadAction) {
-      state.data = shiftsMockData
-    }
-  }
+  reducers: {},
+  extraReducers(builder) {
+    builder
+    .addCase(fetchWorkShits.pending, (state) => {
+      state.loading = true
+      state.errorMessage = ''
+    })
+    .addCase(fetchWorkShits.fulfilled, (state, action) => {
+      state.loading = false
+      state.errorMessage = ''
+      state.data = {
+        ...action.payload
+      }
+    })
+    .addCase(fetchWorkShits.rejected, (state, action) => {
+      state.loading = false
+      state.errorMessage = `[${ action.error.code }] ${ action.error.message }`
+    })
+  },
 })
 
-export const { setData } = slice.actions 
 export default slice.reducer
